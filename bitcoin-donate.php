@@ -3,7 +3,7 @@
  * Plugin Name: Bitcoin Donate
  * Plugin URI: http://srinig.com/wordpress-plugins/bitcoin-donate/
  * Description: A plugin that helps you display a Bitcoin donate button in your WordPress website.
- * Version: 0.0
+ * Version: 0.1
  * Author: Srinivasan G
  * Author URI: http://srinig.com/
  * License: GPL2
