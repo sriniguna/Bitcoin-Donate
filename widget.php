@@ -33,7 +33,10 @@ class Bitcoin_Donate_Widget extends WP_Widget {
 		if ( ! empty( $address ) ) {
 			echo '<p style="word-wrap:break-word;">';
 			echo __( 'Donate bitcoins to: ', 'bitcoin_donate');
-			echo '<a href="bitcoin:'.$address.'">'.$address.'</a>';
+			echo '<a href="bitcoin:'.$address.'">';
+			echo $address;
+			echo '<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=bitcoin:'.$address.'" />';
+			echo '</a>';
 			echo '</p>';
 		}
 		echo $args['after_widget'];
