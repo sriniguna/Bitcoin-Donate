@@ -26,11 +26,16 @@ class Bitcoin_Donate_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'bitcoin_donate', $instance['title'] );
-
+		$address = $instance['address'];
 		echo $args['before_widget'];
 		if ( ! empty( $title ) )
 			echo $args['before_title'] . $title . $args['after_title'];
-		echo __( 'Donate bitcoins', 'bitcoin_donate' );
+		if ( ! empty( $address ) ) {
+			echo '<p style="word-wrap:break-word;">';
+			echo __( 'Donate bitcoins to: ', 'bitcoin_donate');
+			echo '<a href="bitcoin:'.$address.'">'.$address.'</a>';
+			echo '</p>';
+		}
 		echo $args['after_widget'];
 	}
 
@@ -48,10 +53,18 @@ class Bitcoin_Donate_Widget extends WP_Widget {
 		else {
 			$title = __( 'Donate', 'bitcoin_donate' );
 		}
+
+		if ( isset( $instance[ 'address' ] ) ) {
+			$address = $instance[ 'address' ];
+		}
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id( 'address' ); ?>"><?php _e( 'Bitcoin address:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'address' ); ?>" name="<?php echo $this->get_field_name( 'address' ); ?>" type="text" value="<?php echo esc_attr( $address ); ?>" />
 		</p>
 		<?php 
 	}
@@ -69,7 +82,7 @@ class Bitcoin_Donate_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-
+		$instance['address'] = ( ! empty( $new_instance['address'] ) ) ? strip_tags( $new_instance['address'] ) : '';
 		return $instance;
 	}
 
